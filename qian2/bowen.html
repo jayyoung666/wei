@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        .one{
+           background-image: url('./13.JPG');
+           /* background-color: #edeef0; */
+           background-size: cover;
+           background-attachment: fixed;
+        }
+        .daohang {
+           height: 40px;
+           border-top: 3px solid black;
+           border-bottom: 3px solid hsl(0, 0%, 4%);
+           background-color: transparent;
+        }
+        .daohang a {
+            text-decoration: none;
+            /* width: 80px; */
+            padding-left: 16px;
+            padding-right: 16px;
+            height: 40px;
+            background-color: white;
+            display: inline-block;
+            text-align: center;
+            line-height: 40px;
+            font-size: 15px;
+            color: black;
+            font-weight: 700;
+            background-color: transparent;
+        }
+        .daohang a:hover{
+            background-color: #edeef0;
+            color: red;
+        }
+        .box{
+            width: 900px;
+            height: 900px;
+            margin: 15px auto;
+            background-color: #edeef0;
+            border-radius: 15px;
+            display: table;
+        }
+        .box textarea{
+           position: relative;
+           left: 80px;
+           resize: none;
+        }
+        .anu{
+            position: relative;
+            left: 0;
+            text-align: center;
+        }
+        button{
+            cursor: pointer;
+        }
+        ul{
+          list-style: none;  
+        }
+        .wenz{
+          padding: 12px;
+          border-radius: 10px;
+          border: solid 1px;
+        }
+    </style>
+</head>
+<body class="one">
+    <div class="daohang">
+        <a href="./ziwojieshao.html">个人简介</a>
+        <a href="./zhaopian.html">照片墙</a>
+        <a href="./bowen.html">博文</a>
+        <!-- <a href="#">文章分享</a> -->
+    </div>
+    <div class="box" id="bo">
+        <div style="padding: 10px;" id="#fabu">
+            <textarea title="发表文章" id="wenzhang" rows="10" cols="100" placeholder="发表一篇新的文章"></textarea>
+            <div class="anu">
+              <button id="fab">发表文章</button>
+            </div>
+        </div>
+        <div class="wenz">
+            <h3 style="text-align: center;">第1篇文章</h3>
+            <p id="w1">&ensp;&ensp;通过掌握HTML、CSS和JavaScript等基本知识，并不断学习和实践，我们可以实现各种需求并创建出令人满意的交互体验。 通过前端编程，我们可以创建各种各样的网页和应用程序，为用户提供丰富的互动体验。 学习框架和库：掌握一些流行的前端框架和库，例如React、Vue.js和Angular，可以帮助提高开发效率并实现更复杂的功能。 通过持续学习和实践，我们可以不断提升自己在前端编程领域的技能和能力，从而更好地实现各种需求并享受编程的乐趣。</p>
+            <p style="font-size: 8px;" id="time">编辑于：Tue Oct 10 2023 20:12:06 GMT+0800 (中国标准时间)</p>
+            <div class="anu">
+                <button id="bf">删除</button>
+                <button id="bz">点赞：0</button>
+                <button id="bj">编辑</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let bz=[],bf=[],bj=[]
+        bz[1]=document.querySelector('#bz')
+        bf[1]=document.querySelector('#bf')
+        bj[1]=document.querySelector('#bj')
+        const box=document.querySelector('#bo')
+        let text=document.querySelector('#wenzhang')
+        let w1=document.querySelector('#w1')
+        let time=document.querySelector('#time')
+        const fab=document.querySelector('#fab')
+        let fabu=document.querySelector('#fabu')
+        let wenz=document.querySelector('.wenz')
+        let dz=[]
+        let i=0;
+        bz[1].addEventListener('click',function(){
+            bz[1].innerHTML=`点赞：${++i}`
+            dz[1]=i
+        })
+        bf[1].addEventListener('click',function(){
+            box.removeChild(box.children[1])
+        })
+        bj[1].addEventListener('click',function(){
+            let newp=prompt(`输入修改内容:${w1.innerHTML}`)
+            w1.innerHTML=`&ensp;&ensp;${newp}`
+            time.innerHTML=`编辑于：${new Date()}`
+        })
+        let n=1;
+        let nw=[]
+        fab.addEventListener('click',function(){
+            n++
+            nw[n]=wenz.cloneNode(true)
+            dz[n]=0
+            nw[n].innerHTML=`
+            <h3 style="text-align: center;">第${n}篇文章</h3>
+            <p id="w1">&ensp;&ensp;${text.value}</p>
+            <p style="font-size: 8px;" id="time">编辑于：${new Date()}</p>
+            <div class="anu">
+                <button id="bfn">删除</button>
+                <button id="bzn">点赞：0</button>
+                <button id="bjn">编辑</button>
+            </div>
+             `  
+            bo.appendChild(nw[n])
+            bz[n]=document.querySelector('#bzn')
+            console.log(bz[n])
+            bf[n]=document.querySelector('#bfn')
+            bj[n]=document.querySelector('#bjn')
+            bz[n].addEventListener('click',function(){
+                bz[n].innerHTML=`点赞：${++dz[n]}`
+                console.log(dz[n])
+            })
+            bf[n].addEventListener('click',function(){
+                console.log(box.children[0])
+                box.removeChild(box.children[n])
+                dz[n]=0;
+                n--;
+            })
+            bj[n].addEventListener('click',function(){
+                let newp=prompt(`输入修改内容:${w1.innerHTML}`)
+                nw[n].innerHTML=`
+                <h3 style="text-align: center;">第${n}篇文章</h3>
+                <p id="w1">&ensp;&ensp;${newp}</p>
+                <p style="font-size: 8px;" id="time">编辑于：${new Date()}</p>
+                <div class="anu">
+                    <button id="bfn">删除</button>
+                    <button id="bzn">点赞：${dz[n]}</button>
+                    <button id="bjn">编辑</button>
+                </div>
+                `  
+                // time.innerHTML=`编辑于：${new Date()}`
+            })  
+            // nw.w1.innerHTML=wenzhang.innerHTML
+            // wenzhang.innerHTML=''
+        })
+    </Script>
+</body>
+</html>

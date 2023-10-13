@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        .one {
+           background-image: url('./1.JPG');
+           background-size: cover;
+        }
+        .daohang {
+           height: 40px;
+           border-top: 3px solid black;
+           border-bottom: 3px solid #edeef0;
+           background-color: transparent;
+        }
+        .daohang a {
+            text-decoration: none;
+            /* width: 80px; */
+            padding-left: 16px;
+            padding-right: 16px;
+            height: 40px;
+            background-color: white;
+            display: inline-block;
+            text-align: center;
+            line-height: 40px;
+            font-size: 15px;
+            color: black;
+            font-weight: 700;
+            background-color: transparent;
+        }
+        .daohang a:hover{
+            background-color: #edeef0;
+            color: red;
+        }
+        .silder{
+            padding: 12px;
+            width: 900px;
+            height: 790px;
+            margin: 0 auto;
+        }
+        .wrapper{
+            width: 100%;
+            height: 600px;
+        }
+        .wrapper img{
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .footer{
+            height: 80px;
+            background-color: #433f3f;
+            padding: 12px 12px 0 12px;
+            position: relative;
+        }
+        .footer .toggle{
+            position: absolute;
+            right: 0;
+            top: 12px;
+            display: flex;
+        }
+        .footer .toggle button {
+            margin-right: 12px;
+            width: 28px;
+            height: 28px;
+            appearance: none;
+            border: none;
+            background: #424141;
+            opacity: 0.1;
+            color: #edeef0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .footer .toggle button:hover{
+            background: hsl(0, 1%, 36%);
+            opacity: 0.2;
+        }
+        .footer p{
+            margin: 0;
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .indicator{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+        .indicator li{
+            width: 8px;
+            height: 8px;
+            margin: 4px;
+            border-radius: 50%;
+            background: #fff;
+            opacity: 0.4;
+            cursor: pointer;
+        }
+        .indicator li.active{
+            width: 12px;
+            height: 12px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="one">
+    <div class="daohang">
+        <a href="./ziwojieshao.html">个人简介</a>
+        <a href="./zhaopian.html">照片墙</a>
+        <a href="./bowen.html">博文</a>
+        <!-- <a href="#">文章分享</a> -->
+    </div>
+    <div style="height: 100px; width: 800px; margin: 0 auto;">
+        <h1 style="text-align: center;">照片墙</h1>
+        <hr>
+        <p style="text-align: center; font-size: 18px; height: auto; font-weight: 700;">一些去过的地方</p>
+    </div>
+    <div class="silder">
+      <div class="wrapper">
+        <img src="1.JPG" alt=""/>
+      </div>
+      <div class="footer">
+        <p>惠州双月湾</p>
+        <ul class="indicator">
+          <li class="active"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <div class="toggle">
+          <button class="prev" style="color: #edeef0;">&lt;</button>  
+          <button class="next" style="color: #edeef0;">&gt;</button> 
+        </div>
+      </div>
+    </div>
+    <script>
+       const data=[{ url:'./1.JPG', title:'惠州双月湾'}, { url:'./2.JPG',title:'湛江开往海口的渡船上'}, { url:'./3.JPG',title:'南海观音像'}, 
+       { url:'./4.JPG',title:'某水族馆'}, { url:'./5.JPG',title:'度假酒店外景'}, { url:'./6.JPG',title:'南山风景'}, { url:'./7.JPG',title:'惠州某不知名小岛'}, { url:'./8.JPG',title:'惠州某不知名小岛'},
+       { url:'./9.JPG',title:'凡尔赛宫'},{ url:'./10.JPG',title:'科隆大教堂'}] 
+       const img=document.querySelector('.wrapper img')
+       const next=document.querySelector('.next')
+       const p=document.querySelector('.footer p')
+       let i=0;
+       next.addEventListener('click',function(){
+         i++
+         i=i>=data.length ? 0:i
+         toggle() 
+       })
+       const prev=document.querySelector('.prev')
+       prev.addEventListener('click',function(){
+         i--
+         i=i<0 ? data.length-1:i
+         toggle()
+       })
+       function toggle(){
+         img.src = data[i].url;
+         p.innerHTML = data[i].title;
+         document.querySelector('.indicator .active').classList.remove('active')
+         document.querySelector(`.indicator li:nth-child( ${i+1} )`).classList.add('active')
+       }
+       let timerid=setInterval(function(){
+         next.click()
+       },1000)
+       const silder=document.querySelector('.silder')
+       silder.addEventListener('mouseenter',function(){
+         clearInterval(timerid)
+       })
+       silder.addEventListener('mouseleave',function(){
+         clearInterval(timerid)
+         timerid=setInterval(function(){
+           next.click()
+         },1000)
+       })
+    </script>
+</body>
+</html>
